@@ -1,8 +1,6 @@
 const request = require('request')
 const chalk = require('chalk')
 
-
-
 const forCast = (latitude,longitude, callback) => {
     const url = `http://api.weatherstack.com/current?access_key=d82468890da06c4025d831a79423be22&query=${latitude},${longitude}&units=m`
 
@@ -15,9 +13,9 @@ const forCast = (latitude,longitude, callback) => {
             callback(undefined,{
                 temp: response.body.current.temperature,
                 feelslike: response.body.current.feelslike,
-                weather_description: response.body.current.weather_descriptions[0]
+                weather_description: response.body.current.weather_descriptions[0],
+                forecast: `${response.body.current.weather_descriptions[0]}. It is currently ${response.body.current.temperature} degree out. It feels like ${response.body.current.feelslike} degree out.`
             })
-            console.log(chalk.green.bold(`${response.body.current.weather_descriptions[0]}. It is currently ${response.body.current.temperature} degree out. It feels like ${response.body.current.feelslike} degree out.`))
         }
     })
 }
